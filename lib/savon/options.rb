@@ -96,7 +96,8 @@ module Savon
         :no_message_tag              => false,
         :follow_redirects            => false,
         :unwrap                      => false,
-        :host                        => nil
+        :host                        => nil,
+        :wsse_must_understand        => false
       }
 
       options = defaults.merge(options)
