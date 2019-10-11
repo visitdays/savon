@@ -65,6 +65,10 @@ module Savon
     def wsse_signature(signature)
       @options[:wsse_signature] = signature
     end
+
+    def wsse_must_understand(must_understand = false)
+      @options[:wsse_must_understand] = must_understand
+    end
   end
 
   class GlobalOptions < Options
