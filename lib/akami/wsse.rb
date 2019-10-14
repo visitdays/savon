@@ -177,6 +177,7 @@ module Akami
       unless signature?
         sec_hash["wsse:Security"].merge!(:attributes! => { key => { "wsu:Id" => "#{tag}-#{count}", "xmlns:wsu" => WSU_NAMESPACE } })
       end
+      binding.pry
 
       sec_hash
     end
