@@ -166,18 +166,15 @@ module Akami
         :attributes! => { "wsse:Security" => { "xmlns:wsse" => WSE_NAMESPACE } }
       }
 
-      if must_understand?
-        extra_info ||= {}
-        extra_info.merge!("soapenv:mustUnderstand" => "1")
-      end
-
       unless extra_info.empty?
         sec_hash["wsse:Security"].merge!(extra_info)
       end
 
-      if signature?
+      if signature? || must_understand?
         sec_hash[:attributes!].merge!("soapenv:mustUnderstand" => "1")
-      else
+      end
+
+      unless signature?
         sec_hash["wsse:Security"].merge!(:attributes! => { key => { "wsu:Id" => "#{tag}-#{count}", "xmlns:wsu" => WSU_NAMESPACE } })
       end
 
