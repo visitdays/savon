@@ -180,6 +180,8 @@ module Akami
         end
       end
 
+      binding.pry
+
       sec_hash
     end
 
