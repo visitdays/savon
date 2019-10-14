@@ -170,14 +170,15 @@ module Akami
         sec_hash["wsse:Security"].merge!(extra_info)
       end
 
-      if signature? || must_understand?
+      if signature?
         sec_hash[:attributes!].merge!("soapenv:mustUnderstand" => "1")
-      end
-
-      unless signature?
+      else
         sec_hash["wsse:Security"].merge!(:attributes! => { key => { "wsu:Id" => "#{tag}-#{count}", "xmlns:wsu" => WSU_NAMESPACE } })
+
+        if must_understand?
+          sec_hash["wsse:Security"][:attributes!].merge!("soapenv:mustUnderstand" => "1")
+        end
       end
-      binding.pry
 
       sec_hash
     end

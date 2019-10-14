@@ -83,7 +83,6 @@ module Savon
 
     def akami
       wsse = Akami.wsse
-      binding.pry
       wsse.must_understand = wsse_must_understand if wsse_must_understand
       wsse.credentials(*wsse_auth) if wsse_auth
       wsse.timestamp = wsse_timestamp if wsse_timestamp
