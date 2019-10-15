@@ -126,6 +126,7 @@ module Akami
           "wsse:Nonce" => Base64.encode64(nonce).chomp,
           "wsu:Created" => timestamp,
           "wsse:Password" => digest_password,
+          "TalismaSessionkey" => nil,
           :attributes! => { "wsse:Password" => { "Type" => PASSWORD_DIGEST_URI },  "wsse:Nonce" => { "EncodingType" => BASE64_URI } }
         # clear the nonce after each use
         @nonce = nil
@@ -133,6 +134,7 @@ module Akami
         token = security_hash :wsse, "UsernameToken",
           "wsse:Username" => username,
           "wsse:Password" => password,
+          "TalismaSessionkey" => nil,
           :attributes! => { "wsse:Password" => { "Type" => PASSWORD_TEXT_URI } }
       end
       token
@@ -176,11 +178,9 @@ module Akami
         sec_hash["wsse:Security"].merge!(:attributes! => { key => { "wsu:Id" => "#{tag}-#{count}", "xmlns:wsu" => WSU_NAMESPACE } })
 
         if must_understand?
-          sec_hash[:attributes!]["wsse:Security"].merge!("soapenv:mustUnderstand" => "1")
+          sec_hash[:attributes!]["wsse:Security"].merge!("env:mustUnderstand" => "1")
         end
       end
-
-      binding.pry
 
       sec_hash
     end
