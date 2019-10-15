@@ -176,7 +176,7 @@ module Akami
         sec_hash["wsse:Security"].merge!(:attributes! => { key => { "wsu:Id" => "#{tag}-#{count}", "xmlns:wsu" => WSU_NAMESPACE } })
 
         if must_understand?
-          sec_hash["wsse:Security"][:attributes!].merge!("soapenv:mustUnderstand" => "1")
+          sec_hash[:attributes!].merge!("soapenv:mustUnderstand" => "1")
         end
       end
 
