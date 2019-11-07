@@ -134,7 +134,8 @@ module Akami
         token = security_hash :wsse, "UsernameToken",
           "wsse:Username" => username,
           "wsse:Password" => password,
-          "TalismaSessionkey" => nil,
+          "wsu:Created" => timestamp,
+          'Id' => nil,
           :attributes! => { "wsse:Password" => { "Type" => PASSWORD_TEXT_URI } }
       end
       token
@@ -153,7 +154,8 @@ module Akami
     def wsu_timestamp
       security_hash :wsu, "Timestamp",
         "wsu:Created" => (created_at || Time.now).utc.xmlschema,
-        "wsu:Expires" => (expires_at || (created_at || Time.now) + 60).utc.xmlschema
+        "wsu:Expires" => (expires_at || (created_at || Time.now) + 60).utc.xmlschema,
+        "timecreated" => (created_at || Time.now).utc.xmlschema,
     end
 
     # Returns a Hash containing wsse/wsu Security details for a given
