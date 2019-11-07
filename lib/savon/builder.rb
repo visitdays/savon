@@ -62,7 +62,6 @@ module Savon
     end
 
     def header_attributes
-      @globals[:use_wsa_headers] ? { 'xmlns:wsa' => WSA_NAMESPACE } : {}
     end
 
     def body_attributes
@@ -118,6 +117,8 @@ module Savon
         # check env_namespace
         namespaces["xmlns#{env_namespace && env_namespace != "" ? ":#{env_namespace}" : ''}"] =
           SOAP_NAMESPACE[@globals[:soap_version]]
+
+        namespaces.merge!({ 'xmlns:wsa' => WSA_NAMESPACE }) if @globals[:use_wsa_headers]
 
         namespaces
       end
