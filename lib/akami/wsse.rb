@@ -135,7 +135,7 @@ module Akami
           "wsse:Username" => username,
           "wsse:Password" => password,
           "wsu:Created" => timestamp,
-          'Id' => nil,
+          'Id/' => nil,
           :attributes! => { "wsse:Password" => { "Type" => PASSWORD_TEXT_URI } }
       end
       token
