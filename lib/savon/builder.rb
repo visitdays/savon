@@ -118,7 +118,10 @@ module Savon
         namespaces["xmlns#{env_namespace && env_namespace != "" ? ":#{env_namespace}" : ''}"] =
           SOAP_NAMESPACE[@globals[:soap_version]]
 
-        namespaces.merge!({ 'xmlns:wsa' => WSA_NAMESPACE }) if @globals[:use_wsa_headers]
+        if @globals[:use_wsa_headers]
+          # namespaces.merge!({ 'xmlns:wsa' => WSA_NAMESPACE })
+          namespaces.merge!({ 'xmlns:wsa' => 'http://schemas.xmlsoap.org/ws/2004/08/addressing' })
+        end
 
         namespaces
       end
